@@ -60,6 +60,7 @@
       grid-template-columns: 1fr 1fr;
       gap:18px;
       margin-top:26px;
+      align-items:stretch; /* eşit yükseklik */
     }
     @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
 
@@ -72,6 +73,11 @@
       backdrop-filter: blur(6px);
       position:relative;
       overflow:hidden;
+
+      /* BUTONLARI HİZALAMAK İÇİN */
+      display:flex;
+      flex-direction:column;
+      min-height: 260px; /* iki kartı dengeler */
     }
     .card::before{
       content:"";
@@ -83,7 +89,12 @@
     }
     .card > *{position:relative}
     .card h2{margin:0 0 8px; font-size:22px; letter-spacing:-0.02em;}
-    .card p{margin:0 0 16px; color:var(--muted); line-height:1.55}
+    .card p{
+      margin:0 0 16px;
+      color:var(--muted);
+      line-height:1.55;
+      flex:1; /* açıklama uzasa/kısalsa da buton sabit */
+    }
 
     .btn{
       display:inline-flex;
@@ -101,6 +112,8 @@
       transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
       text-decoration:none;
       user-select:none;
+
+      margin-top:auto; /* BUTONLAR AYNI HİZADA */
     }
     .btn:active{transform: translateY(1px)}
     .btn:hover{filter: brightness(1.02); box-shadow: 0 18px 38px rgba(16,24,40,.16);}
@@ -141,7 +154,6 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <!-- logo.png bu repo root'unda duracak -->
       <img class="logo" src="logo.png" alt="Altınküre Ortaokulu" />
       <h1>Altınküre Ortaokulu</h1>
       <div class="sub">Öğrenci Çalışma Programı Paneli</div>
@@ -176,18 +188,10 @@
   </div>
 
   <script>
-    /**
-     * BURADAN LİNKLERİ DÜZENLE
-     * Panel başka sayfalara yönlendirir; bu dosya tek başına çalışır.
-     */
     const LINKS = {
-      // Manuel sistem GitHub Pages linki
       manual: "https://burakkteacher.github.io/altinkure-manuel-program/",
-      // Otomatik sistem GitHub Pages linki
       auto:   "https://burakkteacher.github.io/ogrenci-program/"
     };
-
-    // Butonlara linkleri göm
     document.getElementById("btnManual").href = LINKS.manual;
     document.getElementById("btnAuto").href   = LINKS.auto;
   </script>
