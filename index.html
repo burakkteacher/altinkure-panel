@@ -6,252 +6,239 @@
   <title>Altınküre Ortaokulu • Öğretmen Paneli</title>
   <style>
     :root{
-      --bg:#f6f7fb;
-      --card:#ffffff;
-      --text:#111827;
+      --bg:#ffffff;
+      --ink:#111827;
       --muted:#6b7280;
+      --card:#ffffff;
       --line:#e5e7eb;
+      --soft:#f8fafc;
 
-      /* Altınküre hissi */
-      --gold:#c9a227;
-      --gold2:#b88e12;
-      --blue:#2f6fed;
+      --gold:#c8a63a;
+      --gold2:#ead58a;
+      --blue:#2563eb;
 
-      --shadow: 0 12px 30px rgba(17,24,39,.08);
+      --shadow: 0 12px 30px rgba(17,24,39,.10);
       --radius: 18px;
     }
+
     *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      color:var(--text);
-      background: radial-gradient(1200px 600px at 50% -200px, rgba(201,162,39,.18), transparent 60%),
-                  radial-gradient(900px 500px at 90% 0px, rgba(47,111,237,.12), transparent 55%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 600px at 50% -100px, rgba(234,213,138,.45), transparent 60%),
+        radial-gradient(900px 500px at 0% 0%, rgba(37,99,235,.08), transparent 55%),
+        var(--bg);
+      color:var(--ink);
     }
-    .wrap{ max-width:1100px; margin:24px auto 48px; padding:0 14px; }
+    .wrap{ max-width:1100px; margin:24px auto 50px; padding:0 16px; }
+
     .top{
-      display:flex; flex-direction:column; align-items:center; text-align:center;
-      gap:10px; margin-bottom:18px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      margin-bottom:14px;
     }
+    .brand{ display:flex; align-items:center; gap:14px; }
     .logo{
-      width:140px; height:auto;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.08));
+      width:84px; height:84px; border-radius:999px; background:#fff;
+      box-shadow: var(--shadow);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden; border:1px solid rgba(200,166,58,.35);
     }
-    h1{ margin:0; font-size:34px; letter-spacing:.2px; }
-    .subtitle{ color:var(--muted); font-size:15px; }
+    .logo img{ width:82px; height:82px; object-fit:contain; }
+    .titles h1{ margin:0; font-size:26px; letter-spacing:.2px; }
+    .titles .sub{ margin-top:4px; color:var(--muted); font-size:13px; }
+
     .pill{
-      display:inline-flex; gap:8px; align-items:center;
-      padding:8px 12px; border:1px solid var(--line);
-      background:#fff; border-radius:999px; box-shadow: 0 6px 18px rgba(0,0,0,.05);
-      color:#374151; font-size:12px;
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid rgba(200,166,58,.45);
+      background: linear-gradient(180deg, rgba(234,213,138,.32), rgba(200,166,58,.10));
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      color:#6b5a1a;
+      font-weight:700;
+      white-space:nowrap;
     }
-    .grid{
-      display:grid; grid-template-columns: 1.2fr .8fr; gap:14px;
-      margin-top:16px;
-    }
-    @media (max-width:980px){ .grid{ grid-template-columns:1fr; } }
+
+    .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+    @media (max-width: 980px){ .grid{ grid-template-columns:1fr; } }
 
     .card{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       padding:16px;
     }
-    .card h2{ margin:0 0 10px; font-size:18px; }
-    .muted{ color:var(--muted); font-size:12.5px; line-height:1.45; }
+    .card h2{ margin:0 0 10px; font-size:16px; }
+    .card p{ margin:0; color:var(--muted); font-size:13px; line-height:1.5; }
 
-    label{ display:block; font-size:12px; color:var(--muted); margin:12px 0 6px; }
-    select,input,button{
+    label{ display:block; font-size:12px; color:var(--muted); margin:10px 0 6px; }
+    select, textarea{
       width:100%;
       border:1px solid var(--line);
-      border-radius:14px;
-      padding:12px 12px;
-      font-size:14px;
-      background:#fff;
-      color:var(--text);
+      border-radius: 12px;
+      padding:10px 10px;
+      background: var(--soft);
+      color: var(--ink);
+      font-size:13px;
       outline:none;
     }
-    select:focus,input:focus{ border-color: rgba(47,111,237,.5); box-shadow: 0 0 0 4px rgba(47,111,237,.12); }
+    textarea{ min-height:72px; resize:vertical; background:#fff; }
 
-    .row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    @media (max-width:640px){ .row{ grid-template-columns:1fr; } }
+    .row{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    @media (max-width: 700px){ .row{ grid-template-columns:1fr; } }
 
-    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
-    .btnRow button{ flex:1 1 220px; cursor:pointer; font-weight:800; }
-    .btnGold{
-      background: linear-gradient(180deg, #d7b23a, #b88e12);
-      border: 1px solid #b88e12;
+    .btn{
+      border:0;
+      border-radius: 12px;
+      padding:12px 12px;
+      font-weight:800;
+      cursor:pointer;
+      font-size:13px;
+      width:100%;
+    }
+    .btn-gold{
+      background: linear-gradient(180deg, var(--gold2), var(--gold));
+      color:#1f2937;
+      box-shadow: 0 10px 20px rgba(200,166,58,.25);
+    }
+    .btn-blue{
+      background: linear-gradient(180deg, #3b82f6, #2563eb);
       color:#fff;
+      box-shadow: 0 10px 20px rgba(37,99,235,.22);
     }
-    .btnBlue{
-      background: linear-gradient(180deg, #3d7cff, #2f6fed);
-      border: 1px solid #2f6fed;
-      color:#fff;
-    }
-    .btnGhost{
-      background:#fff;
-      border:1px dashed #cbd5e1;
-      color:#111827;
-      font-weight:700;
-    }
-    .btnGold:hover,.btnBlue:hover{ filter:brightness(1.03); transform: translateY(-1px); }
-    .btnGold:active,.btnBlue:active{ transform: translateY(0px); }
-
-    .infoBox{
-      margin-top:12px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:12px;
-      background: linear-gradient(180deg, rgba(201,162,39,.10), rgba(47,111,237,.06));
-    }
-    .kv{ display:grid; grid-template-columns: 130px 1fr; gap:6px; font-size:13px; }
-    .kv div:nth-child(odd){ color:var(--muted); }
-
-    .smallActions{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
-    }
-    .smallActions button{ flex: 1 1 160px; padding:10px 12px; font-size:13px; }
-
-    .list{
-      margin-top:12px;
-      border-top:1px solid var(--line);
-      padding-top:12px;
-    }
-    .li{
-      display:flex; justify-content:space-between; gap:10px;
-      padding:10px 10px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      margin-bottom:10px;
-      background:#fff;
-    }
-    .li b{ font-size:13px; }
-    .li span{ color:var(--muted); font-size:12px; }
-    .tag{
-      display:inline-flex; align-items:center;
-      padding:5px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      font-size:12px;
-      background:#fff;
+    .btn-ghost{
+      background: transparent;
+      border:1px dashed rgba(107,114,128,.55);
       color:#374151;
-      white-space:nowrap;
-      height: fit-content;
+      font-weight:800;
     }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; }
 
     .error{
+      border:1px solid rgba(239,68,68,.35);
+      background: rgba(239,68,68,.06);
+      color:#7f1d1d;
+      padding:10px 12px;
+      border-radius: 14px;
+      font-size:12px;
+      line-height:1.45;
+      margin-top:10px;
+      display:none;
+      white-space:pre-wrap;
+    }
+    .info{
       margin-top:10px;
       padding:10px 12px;
-      border-radius:14px;
-      border:1px solid #fecaca;
-      background:#fff1f2;
-      color:#7f1d1d;
-      font-size:13px;
+      border-radius: 14px;
+      border:1px solid rgba(200,166,58,.35);
+      background: rgba(234,213,138,.18);
+      color:#6b5a1a;
+      font-size:12px;
+      line-height:1.45;
       display:none;
+      white-space:pre-wrap;
     }
+    .small{ font-size:12px; color:var(--muted); margin-top:10px; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="top">
-      <img class="logo" src="logo.png" alt="Altınküre Logo" />
-      <div class="pill">Altınküre Ortaokulu • Öğrenci Çalışma Programı Paneli</div>
-      <h1>Altınküre Ortaokulu</h1>
-      <div class="subtitle">Öğrenci seç → Manuel / Analizden Otomatik / Arşiv (tek ekrandan erişim)</div>
+      <div class="brand">
+        <div class="logo">
+          <!-- panel repo root: logo.png -->
+          <img src="logo.png" alt="Altınküre logo" />
+        </div>
+        <div class="titles">
+          <h1>Altınküre Ortaokulu</h1>
+          <div class="sub">Öğrenci Çalışma Programı Paneli</div>
+        </div>
+      </div>
+
+      <div class="pill">Panel sadece yönlendirir • Sistemler ayrı sayfalarda çalışır</div>
     </div>
 
     <div class="grid">
-      <!-- Sol: Öğrenci seçimi + yönlendirme -->
+      <!-- 1) SİSTEMLER (BUTONLU) -->
       <div class="card">
-        <h2>Öğrenci Seçimi</h2>
-        <div class="muted">
-          Bu panel <b>students.json</b> dosyasını repo root’tan okur. Öğrenci seçtikten sonra sistemleri tek tıkla açarsın.
+        <h2>Sistemler</h2>
+        <p>Öğrenci seçmeden de açabilirsin. Öğrenci seçersen, isim/no/şube bilgisi linke parametre olarak gider.</p>
+
+        <div class="row" style="margin-top:12px;">
+          <button class="btn btn-gold" id="btnManualOpen">Manuel Programı Aç</button>
+          <button class="btn btn-blue" id="btnAutoOpen">Analizden Otomatik Programı Aç</button>
         </div>
+
+        <div class="small">
+          Not: Sistemler parametreyi kullanmasa bile sorun olmaz; sadece linke ek bilgi gider.
+        </div>
+      </div>
+
+      <!-- 2) ÖĞRENCİ SEÇİMİ -->
+      <div class="card">
+        <h2>Öğrenci Seç</h2>
+        <p>Öğrenci listesi bu panel repo’sundaki <b>students.json</b> dosyasından okunur.</p>
 
         <div class="error" id="errBox"></div>
 
-        <div class="row">
+        <div class="row" style="margin-top:10px;">
           <div>
-            <label>Sınıf (opsiyonel filtre)</label>
-            <select id="gradeSel">
-              <option value="">Tümü</option>
-              <option value="5">5. Sınıf</option>
-              <option value="6">6. Sınıf</option>
-              <option value="7">7. Sınıf</option>
-              <option value="8">8. Sınıf</option>
+            <label>Sınıf</label>
+            <select id="selGrade">
+              <option value="">Yükleniyor...</option>
             </select>
           </div>
           <div>
             <label>Şube</label>
-            <select id="subeSel">
-              <option value="">Önce yükleniyor…</option>
+            <select id="selBranch" disabled>
+              <option value="">Önce sınıf seç</option>
             </select>
           </div>
         </div>
 
         <label>Öğrenci</label>
-        <select id="stuSel" disabled>
-          <option value="">Önce şube seç</option>
+        <select id="selStudent" disabled>
+          <option value="">Önce sınıf ve şube seç</option>
         </select>
 
-        <div class="infoBox" id="selectedBox" style="display:none;">
-          <div class="kv">
-            <div>Şube</div><div id="kvSube">-</div>
-            <div>No</div><div id="kvNo">-</div>
-            <div>Ad Soyad</div><div id="kvName">-</div>
-          </div>
+        <label>Öğretmen Notu (opsiyonel)</label>
+        <textarea id="teacherNote" placeholder="Örn: Bu hafta MAT + TR ağırlık. Veliden takip istendi."></textarea>
 
-          <div class="btnRow">
-            <button class="btnGold" id="btnManual">Manuel Programı Aç</button>
-            <button class="btnBlue" id="btnAuto">Analizden Otomatik Aç</button>
-          </div>
+        <div class="info" id="selectedInfo"></div>
 
-          <div class="smallActions">
-            <button class="btnGhost" id="btnCopy">Öğrenci Bilgisi Kopyala</button>
-            <button class="btnGhost" id="btnClearSel">Seçimi Sıfırla</button>
-          </div>
-
-          <div class="muted" style="margin-top:10px;">
-            Not: Bu sayfa diğer sistemleri <b>bozmaz</b>. Sadece seçili öğrenciyi parametreyle açar.
-          </div>
-        </div>
-      </div>
-
-      <!-- Sağ: Arşiv / Bilgi -->
-      <div class="card">
-        <h2>Excel Arşivi / Geçmiş Programlar</h2>
-        <div class="muted">
-          Bu bölüm, ileride manuel/otomatik sayfalar “kayıt” attığında otomatik dolacak şekilde planlandı.
-          Şimdilik panel, tarayıcıdaki <b>localStorage</b> kayıtlarını listeler (varsa).
-        </div>
-
-        <div class="list" id="archiveList">
-          <div class="muted">Henüz arşiv kaydı bulunamadı.</div>
-        </div>
-
-        <div class="muted" style="margin-top:12px;">
-          İstersen bir sonraki adımda şunu da yaparız:
-          <b>Manuel</b> ve <b>Otomatik</b> sayfaları Excel üretince “program kaydı”nı buraya otomatik düşürür.
+        <div class="row" style="margin-top:12px;">
+          <button class="btn btn-ghost" id="btnCheckJson">students.json kontrol et</button>
+          <button class="btn btn-ghost" id="btnClearSel">Seçimi temizle</button>
         </div>
       </div>
     </div>
   </div>
 
 <script>
-/* ===========================
-   1) BU İKİ LİNKİ KENDİ SİTELERİNE GÖRE AYARLA
-   =========================== */
-// Eğer manuel/otomatik sayfalar AYNI repo içindeyse dosya adı yazman yeterli: "manual.html" gibi.
-// Eğer başka repoda yayınlıysa tam URL yaz:
-const MANUAL_URL = "https://burakkteacher.github.io/altinkure-manuel-program/"; // örnek
-const AUTO_URL   = "https://burakkteacher.github.io/ogrenci-program/";        // örnek
+/* Linkler (sadece burayı değiştir) */
+const LINKS = {
+  manual: "https://burakkteacher.github.io/altinkure-manuel-program/",
+  auto:   "https://burakkteacher.github.io/ogrenci-program/"
+};
 
-/* ===========================
-   2) students.json okuma + esnek parse
-   =========================== */
-const errBox = document.getElementById("errBox");
+const $ = (id) => document.getElementById(id);
+
+const selGrade = $("selGrade");
+const selBranch = $("selBranch");
+const selStudent = $("selStudent");
+const teacherNote = $("teacherNote");
+const errBox = $("errBox");
+const selectedInfo = $("selectedInfo");
+
+const btnManualOpen = $("btnManualOpen");
+const btnAutoOpen = $("btnAutoOpen");
+const btnCheckJson = $("btnCheckJson");
+const btnClearSel = $("btnClearSel");
+
+let INDEX = new Map(); // grade -> branch -> students
+
 function showError(msg){
   errBox.style.display = "block";
   errBox.textContent = msg;
@@ -261,273 +248,174 @@ function hideError(){
   errBox.textContent = "";
 }
 
-function normTR(s){
-  return (s ?? "").toString().trim();
-}
-function normKey(s){
-  return normTR(s).toLocaleLowerCase("tr-TR");
+function parseGradeFromSube(sube){
+  // "5-A" -> "5"
+  const m = String(sube || "").match(/^\s*(\d+)\s*[-\/]/);
+  return m ? m[1] : "";
 }
 
-// students.json formatlarını esnek karşılamak:
-// - Array of {sube, numara, adi, sinif} gibi
-// - Array of {Sube, Numara, Adi, Sinif} gibi
-// - Object içinde students: [...]
-function coerceStudents(data){
-  let arr = data;
-  if(data && typeof data === "object" && !Array.isArray(data)){
-    if(Array.isArray(data.students)) arr = data.students;
-    else if(Array.isArray(data.ogrenciler)) arr = data.ogrenciler;
+function buildIndex(list){
+  const idx = new Map();
+  for(const s of list){
+    const sube = s.Sube ?? s.sube ?? s.class ?? s.sınıf ?? "";
+    const numara = String(s.Numara ?? s.numara ?? s.no ?? "").trim();
+    const adi = String(s.Adi ?? s.adi ?? s.name ?? "").trim();
+    if(!sube || !numara || !adi) continue;
+
+    const grade = parseGradeFromSube(sube);
+    const branch = String(sube).trim();
+
+    if(!idx.has(grade)) idx.set(grade, new Map());
+    const g = idx.get(grade);
+    if(!g.has(branch)) g.set(branch, []);
+    g.get(branch).push({ grade, sube: branch, numara, adi });
   }
-  if(!Array.isArray(arr)) return [];
 
-  const out = [];
-  for(const it of arr){
-    if(!it || typeof it !== "object") continue;
-
-    const sube =
-      it.sube ?? it.Sube ?? it.SUBE ?? it.branch ?? it.Branch ?? "";
-    const numara =
-      it.numara ?? it.Numara ?? it.no ?? it.No ?? it.number ?? it.Number ?? "";
-    const adi =
-      it.adi ?? it.Adi ?? it.adsoyad ?? it.AdSoyad ?? it.name ?? it.Name ?? "";
-    const sinif =
-      it.sinif ?? it.Sinif ?? it.grade ?? it.Grade ?? "";
-
-    const subeStr = normTR(sube);
-    const noStr = normTR(numara);
-    const nameStr = normTR(adi);
-
-    if(!subeStr || !noStr || !nameStr) continue;
-
-    // sinif boşsa "5-A" gibi subeden çıkarmayı dene
-    let gradeStr = normTR(sinif);
-    if(!gradeStr){
-      const m = subeStr.match(/^(\d{1,2})\s*[-\s]/);
-      if(m) gradeStr = m[1];
+  // sort
+  for(const [g, branches] of idx.entries()){
+    for(const [b, arr] of branches.entries()){
+      arr.sort((a,b)=> a.numara.localeCompare(b.numara, "tr") || a.adi.localeCompare(b.adi, "tr"));
     }
-
-    out.push({
-      sube: subeStr,
-      numara: noStr,
-      adi: nameStr,
-      sinif: gradeStr
-    });
   }
-  return out;
+  return idx;
 }
 
-async function loadStudents(){
-  hideError();
-  // cache bust (mobilde eski json’u tutabiliyor)
-  const url = "students.json?v=" + Date.now();
-  const res = await fetch(url, { cache: "no-store" });
-  if(!res.ok){
-    throw new Error("students.json okunamadı. (Repo root’ta mı? Dosya adı tam 'students.json' mı?)");
-  }
-  const data = await res.json();
-  const students = coerceStudents(data);
-  if(!students.length){
-    throw new Error("students.json yüklendi ama öğrenci listesi boş görünüyor. JSON formatı farklı olabilir.");
-  }
-  return students;
+function fillGrades(){
+  const grades = [...INDEX.keys()].filter(Boolean).sort((a,b)=> Number(a)-Number(b));
+  selGrade.innerHTML = '<option value="">Seçiniz</option>' + grades.map(g => `<option value="${g}">${g}. Sınıf</option>`).join("");
 }
 
-/* ===========================
-   3) UI
-   =========================== */
-const gradeSel = document.getElementById("gradeSel");
-const subeSel  = document.getElementById("subeSel");
-const stuSel   = document.getElementById("stuSel");
-
-const selectedBox = document.getElementById("selectedBox");
-const kvSube = document.getElementById("kvSube");
-const kvNo   = document.getElementById("kvNo");
-const kvName = document.getElementById("kvName");
-
-const btnManual = document.getElementById("btnManual");
-const btnAuto   = document.getElementById("btnAuto");
-const btnCopy   = document.getElementById("btnCopy");
-const btnClearSel = document.getElementById("btnClearSel");
-
-let ALL = [];
-let FILTERED = [];
-let current = null;
-
-function uniqueSorted(arr){
-  return Array.from(new Set(arr)).sort((a,b)=> a.localeCompare(b, "tr"));
-}
-
-function fillSubes(){
-  const g = gradeSel.value;
-  const list = ALL.filter(s => !g || s.sinif === g);
-  FILTERED = list;
-
-  const subes = uniqueSorted(list.map(x => x.sube));
-  subeSel.innerHTML = "";
-  const opt0 = document.createElement("option");
-  opt0.value = "";
-  opt0.textContent = subes.length ? "Şube seç" : "Şube yok";
-  subeSel.appendChild(opt0);
-
-  for(const s of subes){
-    const o = document.createElement("option");
-    o.value = s;
-    o.textContent = s;
-    subeSel.appendChild(o);
-  }
-
-  stuSel.disabled = true;
-  stuSel.innerHTML = `<option value="">Önce şube seç</option>`;
-  hideSelection();
-}
-
-function fillStudents(){
-  const sube = subeSel.value;
-  const list = FILTERED.filter(s => s.sube === sube)
-    .sort((a,b)=> a.adi.localeCompare(b.adi, "tr") || a.numara.localeCompare(b.numara, "tr"));
-
-  stuSel.innerHTML = "";
-  if(!sube){
-    stuSel.disabled = true;
-    stuSel.innerHTML = `<option value="">Önce şube seç</option>`;
-    hideSelection();
+function fillBranches(grade){
+  const branches = INDEX.get(grade);
+  if(!branches){
+    selBranch.innerHTML = '<option value="">Seçiniz</option>';
+    selBranch.disabled = true;
     return;
   }
-  if(!list.length){
-    stuSel.disabled = true;
-    stuSel.innerHTML = `<option value="">Öğrenci yok</option>`;
-    hideSelection();
+  const arr = [...branches.keys()].sort((a,b)=> a.localeCompare(b, "tr"));
+  selBranch.innerHTML = '<option value="">Seçiniz</option>' + arr.map(b => `<option value="${b}">${b}</option>`).join("");
+  selBranch.disabled = false;
+}
+
+function fillStudents(grade, branch){
+  const branches = INDEX.get(grade);
+  const students = branches?.get(branch) || [];
+  selStudent.innerHTML = students.length
+    ? '<option value="">Seçiniz</option>' + students.map((s) => {
+        const v = encodeURIComponent(JSON.stringify(s));
+        return `<option value="${v}">${s.numara} • ${s.adi}</option>`;
+      }).join("")
+    : '<option value="">Öğrenci bulunamadı</option>';
+  selStudent.disabled = students.length === 0;
+}
+
+function getSelectedStudent(){
+  const v = selStudent.value;
+  if(!v) return null;
+  try{ return JSON.parse(decodeURIComponent(v)); }catch(e){ return null; }
+}
+
+function buildQuery(s){
+  const p = new URLSearchParams();
+  p.set("sube", s.sube);
+  p.set("numara", s.numara);
+  p.set("adi", s.adi);
+  const note = (teacherNote.value || "").trim();
+  if(note) p.set("note", note);
+  return "?" + p.toString();
+}
+
+function refreshSelectedInfo(){
+  const s = getSelectedStudent();
+  if(!s){
+    selectedInfo.style.display = "none";
+    selectedInfo.textContent = "";
     return;
   }
-
-  stuSel.disabled = false;
-  const opt0 = document.createElement("option");
-  opt0.value = "";
-  opt0.textContent = "Öğrenci seç";
-  stuSel.appendChild(opt0);
-
-  for(const st of list){
-    const o = document.createElement("option");
-    o.value = st.sube + "||" + st.numara + "||" + st.adi;
-    o.textContent = `${st.numara} • ${st.adi}`;
-    stuSel.appendChild(o);
-  }
-  hideSelection();
+  selectedInfo.style.display = "block";
+  selectedInfo.textContent = `Seçili öğrenci:\n${s.sube} • No: ${s.numara}\n${s.adi}`;
 }
 
-function showSelection(st){
-  current = st;
-  kvSube.textContent = st.sube;
-  kvNo.textContent = st.numara;
-  kvName.textContent = st.adi;
-  selectedBox.style.display = "block";
+/* Butonlar: öğrenci seçiliyse query ekle, değilse düz aç */
+function openSystem(which){
+  const base = LINKS[which];
+  const s = getSelectedStudent();
+  const url = s ? (base + buildQuery(s)) : base;
+  window.open(url, "_blank");
 }
 
-function hideSelection(){
-  current = null;
-  selectedBox.style.display = "none";
-}
+btnManualOpen.addEventListener("click", () => openSystem("manual"));
+btnAutoOpen.addEventListener("click", () => openSystem("auto"));
 
-function openWithParams(baseUrl, st){
-  const u = new URL(baseUrl, window.location.href);
-  u.searchParams.set("sube", st.sube);
-  u.searchParams.set("no", st.numara);
-  u.searchParams.set("adi", st.adi);
-  if(st.sinif) u.searchParams.set("sinif", st.sinif);
-  window.open(u.toString(), "_blank");
-}
-
-gradeSel.addEventListener("change", fillSubes);
-subeSel.addEventListener("change", fillStudents);
-
-stuSel.addEventListener("change", () => {
-  const v = stuSel.value;
-  if(!v){ hideSelection(); return; }
-  const [sube,no,adi] = v.split("||");
-  const st = ALL.find(x => x.sube===sube && x.numara===no && x.adi===adi);
-  if(st) showSelection(st);
-  else hideSelection();
+btnCheckJson.addEventListener("click", () => {
+  window.open("students.json", "_blank");
 });
 
-btnManual.addEventListener("click", () => {
-  if(!current) return;
-  openWithParams(MANUAL_URL, current);
-});
-btnAuto.addEventListener("click", () => {
-  if(!current) return;
-  openWithParams(AUTO_URL, current);
-});
-btnCopy.addEventListener("click", async () => {
-  if(!current) return;
-  const text = `${current.sube} | No: ${current.numara} | ${current.adi}`;
-  try{
-    await navigator.clipboard.writeText(text);
-    btnCopy.textContent = "Kopyalandı";
-    setTimeout(()=> btnCopy.textContent = "Öğrenci Bilgisi Kopyala", 900);
-  }catch{
-    alert(text);
-  }
-});
 btnClearSel.addEventListener("click", () => {
-  gradeSel.value = "";
-  fillSubes();
+  selGrade.value = "";
+  selBranch.innerHTML = '<option value="">Önce sınıf seç</option>';
+  selBranch.disabled = true;
+  selStudent.innerHTML = '<option value="">Önce sınıf ve şube seç</option>';
+  selStudent.disabled = true;
+  teacherNote.value = "";
+  selectedInfo.style.display = "none";
+  selectedInfo.textContent = "";
 });
 
-/* ===========================
-   4) Arşiv: localStorage (şimdilik)
-   - İleride manuel/auto sayfalara “kaydet” ekleriz; burası otomatik dolar.
-   =========================== */
-function renderArchive(){
-  const box = document.getElementById("archiveList");
-  const keys = Object.keys(localStorage).filter(k => k.startsWith("altinkure_archive_"));
-  if(!keys.length){
-    box.innerHTML = `<div class="muted">Henüz arşiv kaydı bulunamadı.</div>`;
+selGrade.addEventListener("change", () => {
+  const g = selGrade.value;
+  selStudent.disabled = true;
+  selStudent.innerHTML = '<option value="">Önce sınıf ve şube seç</option>';
+  selectedInfo.style.display = "none";
+  selectedInfo.textContent = "";
+
+  if(!g){
+    selBranch.disabled = true;
+    selBranch.innerHTML = '<option value="">Önce sınıf seç</option>';
     return;
   }
-  keys.sort((a,b)=> b.localeCompare(a));
+  fillBranches(g);
+});
 
-  box.innerHTML = "";
-  for(const k of keys.slice(0,30)){
-    let item = null;
-    try{ item = JSON.parse(localStorage.getItem(k)); }catch{}
-    if(!item) continue;
+selBranch.addEventListener("change", () => {
+  const g = selGrade.value;
+  const b = selBranch.value;
+  selectedInfo.style.display = "none";
+  selectedInfo.textContent = "";
 
-    const div = document.createElement("div");
-    div.className = "li";
-
-    const left = document.createElement("div");
-    const title = document.createElement("b");
-    title.textContent = item.title || "Program";
-    const meta = document.createElement("span");
-    meta.textContent = item.meta || k.replace("altinkure_archive_","");
-    left.appendChild(title);
-    left.appendChild(document.createElement("br"));
-    left.appendChild(meta);
-
-    const tag = document.createElement("div");
-    tag.className = "tag";
-    tag.textContent = "Yerel kayıt";
-
-    div.appendChild(left);
-    div.appendChild(tag);
-    box.appendChild(div);
+  if(!g || !b){
+    selStudent.disabled = true;
+    selStudent.innerHTML = '<option value="">Önce sınıf ve şube seç</option>';
+    return;
   }
-}
+  fillStudents(g, b);
+});
 
-/* ===========================
-   INIT
-   =========================== */
+selStudent.addEventListener("change", refreshSelectedInfo);
+teacherNote.addEventListener("input", refreshSelectedInfo);
+
+/* Sayfa yüklenince students.json oku */
 (async function init(){
+  hideError();
   try{
-    ALL = await loadStudents();
-    fillSubes();
-    renderArchive();
+    const res = await fetch("students.json", { cache:"no-store" });
+    if(!res.ok){
+      throw new Error(`students.json okunamadı. HTTP ${res.status}\n\nKontrol:\n1) Dosya repo root'ta mı?\n2) Commitlendi mi?\n3) Pages deploy oldu mu?\n\nDeneme linki:\nhttps://burakkteacher.github.io/altinkure-panel/students.json`);
+    }
+    const data = await res.json();
+    if(!Array.isArray(data) || data.length === 0){
+      throw new Error("students.json boş veya beklenen formatta değil.\nBeklenen: [{Sube, Numara, Adi}, ...]");
+    }
+    INDEX = buildIndex(data);
+    if(INDEX.size === 0){
+      throw new Error("students.json okundu ama (Sube/Numara/Adi) alanları bulunamadı.\nÖrnek:\n{ \"Sube\":\"5-A\", \"Numara\":\"1021\", \"Adi\":\"Nisanur İskender\" }");
+    }
+    fillGrades();
   }catch(e){
-    console.error(e);
-    showError(e.message || "Öğrenci listesi yüklenemedi.");
-    // yine de dropdownları boş bırak
-    subeSel.innerHTML = `<option value="">Yüklenemedi</option>`;
-    stuSel.disabled = true;
+    showError(e.message || "Bilinmeyen hata");
+    selGrade.innerHTML = '<option value="">Yüklenemedi</option>';
+    selBranch.disabled = true;
+    selStudent.disabled = true;
   }
 })();
 </script>
