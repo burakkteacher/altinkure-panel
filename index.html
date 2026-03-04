@@ -1,155 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Altınküre Öğretmen Paneli</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Altınküre Ortaokulu • Öğrenci Çalışma Programı Paneli</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#14161a;
+      --muted:#6b7280;
+      --line:#e7e9ee;
+      --shadow: 0 18px 48px rgba(16,24,40,.10);
+      --gold1:#f3d37a;
+      --gold2:#c7a23a;
+      --blue1:#3a7cff;
+      --blue2:#245bd6;
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background: radial-gradient(1000px 420px at 50% 0%, rgba(199,162,58,.10), transparent 60%),
+                  radial-gradient(900px 380px at 85% 35%, rgba(58,124,255,.09), transparent 60%),
+                  var(--bg);
+      min-height:100vh;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:28px 16px 44px; position:relative;}
+    /* watermark */
+    .wrap::before{
+      content:"ALTINKÜRE ORTAOKULU";
+      position:absolute;
+      inset:auto 0 14% 0;
+      text-align:center;
+      font-weight:800;
+      letter-spacing:.18em;
+      font-size:clamp(26px, 6vw, 64px);
+      color:rgba(20,22,26,.05);
+      user-select:none;
+      pointer-events:none;
+    }
+    .top{
+      display:flex; align-items:center; justify-content:center;
+      gap:14px; margin-top:10px; flex-direction:column;
+      text-align:center;
+    }
+    .logo{
+      width:min(240px, 60vw);
+      height:auto;
+      display:block;
+      filter: drop-shadow(0 14px 24px rgba(16,24,40,.10));
+    }
+    h1{margin:10px 0 0; font-size:clamp(22px, 3.2vw, 34px); letter-spacing:-0.02em;}
+    .sub{margin:6px 0 0; color:var(--muted); font-size:14px;}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      margin-top:26px;
+    }
+    @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
 
-<style>
+    .card{
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px 20px 20px;
+      backdrop-filter: blur(6px);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(520px 220px at 20% 0%, rgba(199,162,58,.14), transparent 60%),
+                  radial-gradient(520px 220px at 90% 40%, rgba(58,124,255,.12), transparent 60%);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .card > *{position:relative}
+    .card h2{margin:0 0 8px; font-size:22px; letter-spacing:-0.02em;}
+    .card p{margin:0 0 16px; color:var(--muted); line-height:1.55}
 
-body{
-font-family:system-ui;
-margin:0;
-background:#f4f6fb;
-}
-
-/* WATERMARK LOGO */
-
-body::before{
-content:"";
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-width:700px;
-height:700px;
-background:url("logo.png") center/contain no-repeat;
-opacity:0.05;
-pointer-events:none;
-}
-
-/* HEADER */
-
-.header{
-text-align:center;
-padding:60px 20px 20px;
-}
-
-.header h1{
-margin:0;
-font-size:32px;
-}
-
-.header p{
-margin:5px 0 0;
-color:#777;
-}
-
-/* GRID */
-
-.grid{
-max-width:900px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
-padding:40px;
-}
-
-/* CARD */
-
-.card{
-background:white;
-padding:30px;
-border-radius:16px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-text-align:center;
-}
-
-.card h3{
-margin-top:0;
-}
-
-/* BUTTON */
-
-.btn{
-display:inline-block;
-margin-top:15px;
-padding:12px 20px;
-border-radius:10px;
-text-decoration:none;
-font-weight:600;
-}
-
-.gold{
-background:#caa12e;
-color:white;
-}
-
-.blue{
-background:#4b6bdb;
-color:white;
-}
-
-.gray{
-background:#444;
-color:white;
-}
-
-</style>
-
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width:100%;
+      padding:14px 16px;
+      border-radius: 14px;
+      border:0;
+      font-weight:800;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow: 0 14px 30px rgba(16,24,40,.14);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      text-decoration:none;
+      user-select:none;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn:hover{filter: brightness(1.02); box-shadow: 0 18px 38px rgba(16,24,40,.16);}
+    .gold{
+      background: linear-gradient(180deg, var(--gold1), var(--gold2));
+      color:#1a1406;
+    }
+    .blue{
+      background: linear-gradient(180deg, var(--blue1), var(--blue2));
+      color:#ffffff;
+    }
+    .mini{
+      margin-top:10px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .chip{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.7);
+      padding:7px 10px;
+      border-radius: 999px;
+    }
+    .footer{
+      margin-top:18px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .note{
+      margin-top:10px;
+      text-align:center;
+      color:rgba(20,22,26,.55);
+      font-size:12px;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <div class="top">
+      <!-- logo.png bu repo root'unda duracak -->
+      <img class="logo" src="logo.png" alt="Altınküre Ortaokulu" />
+      <h1>Altınküre Ortaokulu</h1>
+      <div class="sub">Öğrenci Çalışma Programı Paneli</div>
+      <div class="note">Bu panel sadece yönlendirir; sistemler ayrı sayfalarda çalışır.</div>
+    </div>
 
-<div class="header">
+    <div class="grid">
+      <section class="card" aria-label="Manuel Program">
+        <h2>Manuel Program</h2>
+        <p>Öğrenciler için ders veya kazanım seçerek haftalık çalışma programı oluştur.</p>
+        <a class="btn gold" id="btnManual" href="#" target="_blank" rel="noopener">Manuel Sistemi Aç</a>
+        <div class="mini">
+          <span class="chip">Kontrollü seçim</span>
+          <span class="chip">PDF / ZIP çıktı</span>
+        </div>
+      </section>
 
-<h1>Altınküre Ortaokulu</h1>
-<p>Öğretmen Paneli</p>
+      <section class="card" aria-label="Analizden Otomatik Program">
+        <h2>Analizden Otomatik Program</h2>
+        <p>Analiz verisini yapıştır, öğrenciye özel programı otomatik üret.</p>
+        <a class="btn blue" id="btnAuto" href="#" target="_blank" rel="noopener">Otomatik Sistemi Aç</a>
+        <div class="mini">
+          <span class="chip">Hızlı üretim</span>
+          <span class="chip">Analize göre plan</span>
+        </div>
+      </section>
+    </div>
 
-</div>
+    <div class="footer">
+      Altınküre • Öğretmen Paneli
+    </div>
+  </div>
 
-<div class="grid">
+  <script>
+    /**
+     * BURADAN LİNKLERİ DÜZENLE
+     * Panel başka sayfalara yönlendirir; bu dosya tek başına çalışır.
+     */
+    const LINKS = {
+      // Manuel sistem GitHub Pages linki
+      manual: "https://burakkteacher.github.io/altinkure-manuel-program/",
+      // Otomatik sistem GitHub Pages linki
+      auto:   "https://burakkteacher.github.io/ogrenci-program/"
+    };
 
-<div class="card">
-<h3>Manuel Program</h3>
-<p>Öğrenciler için ders veya kazanım seçerek program oluştur.</p>
-<a class="btn gold"
-href="https://burakkteacher.github.io/altinkure-manuel-program/"
-target="_blank">
-Sistemi Aç
-</a>
-</div>
-
-<div class="card">
-<h3>Otomatik Program</h3>
-<p>Analiz verisinden otomatik çalışma programı üret.</p>
-<a class="btn blue"
-href="https://burakkteacher.github.io/ogrenci-program/"
-target="_blank">
-Sistemi Aç
-</a>
-</div>
-
-<div class="card">
-<h3>Deneme Analizi</h3>
-<p>Deneme sonuçlarını analiz eden araç.</p>
-<a class="btn gray"
-href="#">
-Yakında
-</a>
-</div>
-
-<div class="card">
-<h3>Program Arşivi</h3>
-<p>Oluşturulan programları görüntüle.</p>
-<a class="btn gray"
-href="#">
-Yakında
-</a>
-</div>
-
-</div>
-
+    // Butonlara linkleri göm
+    document.getElementById("btnManual").href = LINKS.manual;
+    document.getElementById("btnAuto").href   = LINKS.auto;
+  </script>
 </body>
 </html>
