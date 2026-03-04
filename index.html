@@ -3,478 +3,355 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Altınküre Ortaokulu • Öğrenci Çalışma Programı Paneli</title>
-
+  <title>Altınküre Ortaokulu • Program Paneli</title>
   <style>
     :root{
-      --bg1:#fbfbfd;
-      --bg2:#f3f5fb;
+      --bg1:#fbfbfc;
+      --bg2:#f3f4f7;
       --card:#ffffff;
-      --text:#1f2937;
+      --text:#111827;
       --muted:#6b7280;
-      --line:#e6e8ee;
+      --line:#e5e7eb;
 
-      --gold1:#d6b35a;
-      --gold2:#b58a2a;
+      --gold:#c9a227;
+      --gold2:#b8901e;
 
-      --blue1:#2f6cf6;
-      --blue2:#1f4fd4;
+      --blue:#2563eb;
+      --blue2:#1d4ed8;
 
-      --shadow: 0 12px 30px rgba(17,24,39,.08);
-      --shadow2: 0 8px 18px rgba(17,24,39,.10);
+      --shadow: 0 18px 40px rgba(17,24,39,.10);
+      --shadow2: 0 10px 24px rgba(17,24,39,.10);
       --radius: 18px;
     }
 
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
       background:
-        radial-gradient(1200px 600px at 20% 0%, rgba(214,179,90,.18), transparent 55%),
-        radial-gradient(1200px 600px at 90% 10%, rgba(47,108,246,.14), transparent 55%),
+        radial-gradient(1200px 500px at 50% -120px, rgba(201,162,39,.18), transparent 60%),
+        radial-gradient(900px 400px at 85% 0px, rgba(37,99,235,.12), transparent 55%),
         linear-gradient(180deg,var(--bg1),var(--bg2));
+      min-height:100vh;
     }
 
-    .wrap{ max-width: 1180px; margin: 26px auto; padding: 0 16px 36px; }
+    .wrap{
+      max-width: 1060px;
+      margin: 26px auto 48px;
+      padding: 0 16px;
+    }
+
     .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-      padding: 16px 18px;
       background: rgba(255,255,255,.72);
-      border:1px solid rgba(230,232,238,.9);
+      border:1px solid rgba(229,231,235,.9);
+      backdrop-filter: blur(8px);
       border-radius: 22px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      padding: 18px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
     }
-    .brand{ display:flex; gap:14px; align-items:center; }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
     .logo{
-      width:60px; height:60px; border-radius:16px;
+      width:62px;
+      height:62px;
+      border-radius:16px;
       background:#fff;
-      border:1px solid var(--line);
-      box-shadow: 0 6px 14px rgba(17,24,39,.08);
-      display:flex; align-items:center; justify-content:center;
+      border:1px solid rgba(229,231,235,.95);
       overflow:hidden;
+      box-shadow: 0 10px 20px rgba(17,24,39,.08);
+      flex:0 0 auto;
+      display:grid;
+      place-items:center;
     }
-    .logo img{ width:100%; height:100%; object-fit:contain; padding:6px; }
-    .titles .h1{ font-weight:800; font-size:22px; letter-spacing:.2px; }
-    .titles .h2{ color:var(--muted); margin-top:2px; font-size:13px; }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .titles{ min-width:0; }
+    .titles h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: .2px;
+      line-height:1.15;
+    }
+    .titles p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size: 13px;
+    }
 
     .pill{
-      display:flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      background: rgba(255,255,255,.8);
-      border:1px solid rgba(230,232,238,.9);
-      border-radius:999px;
-      color:#6b5b2a;
-      font-weight:700;
-      font-size:12px;
-      white-space:nowrap;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(229,231,235,.95);
+      background: rgba(255,255,255,.75);
+      color:#5b5f69;
+      font-size: 12px;
+      white-space: nowrap;
     }
     .dot{
       width:10px;height:10px;border-radius:999px;
-      background: linear-gradient(180deg,var(--gold1),var(--gold2));
-      box-shadow: 0 0 0 4px rgba(214,179,90,.18);
+      background: radial-gradient(circle at 30% 30%, #ffe9a8, var(--gold));
+      box-shadow: 0 0 0 3px rgba(201,162,39,.16);
+      flex:0 0 auto;
     }
 
     .grid{
-      margin-top:16px;
+      margin-top: 18px;
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:14px;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
-    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr; } }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+      .pill{ display:none; }
+    }
 
     .card{
-      background: rgba(255,255,255,.82);
-      border:1px solid rgba(230,232,238,.95);
+      background: var(--card);
+      border:1px solid rgba(229,231,235,.95);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-      backdrop-filter: blur(10px);
-    }
-
-    .card h3{ margin:0 0 8px; font-size:18px; }
-    .card p{ margin:0 0 14px; color:var(--muted); line-height:1.45; }
-
-    .btnrow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:10px; }
-    .btn{
-      border:0;
-      cursor:pointer;
-      padding: 14px 18px;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 14px;
       box-shadow: var(--shadow2);
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      transition: transform .08s ease, filter .12s ease;
-      min-width: 240px;
-    }
-    .btn:active{ transform: translateY(1px); }
-    .btn.gold{
-      color:#2b1f07;
-      background: linear-gradient(180deg, #f1d58a, var(--gold1), var(--gold2));
-    }
-    .btn.blue{
-      color:#fff;
-      background: linear-gradient(180deg, #4f86ff, var(--blue1), var(--blue2));
-    }
-    .arrow{ opacity:.9; font-weight:900; }
-
-    .smallnote{
-      margin-top:10px;
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.45;
+      padding: 18px;
     }
 
-    label{ display:block; font-size:12px; color:var(--muted); margin:10px 0 6px; }
-    select, textarea, input{
+    .card h2{
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: .2px;
+    }
+    .card p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    a.btn{
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height: 46px;
+      padding: 0 16px;
+      border-radius: 14px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      border:1px solid transparent;
+      box-shadow: 0 12px 22px rgba(17,24,39,.12);
+      transition: transform .08s ease, filter .12s ease, box-shadow .12s ease;
+      user-select:none;
+      min-width: 220px;
+    }
+    a.btn:active{ transform: translateY(1px); }
+
+    .gold{
+      background: linear-gradient(180deg, #e8cf6a, var(--gold));
+      border-color: rgba(163,125,20,.38);
+      color: #1f2937;
+    }
+    .gold:hover{ filter: brightness(.98); box-shadow: 0 16px 28px rgba(17,24,39,.14); }
+
+    .blue{
+      background: linear-gradient(180deg, #3b82f6, var(--blue2));
+      border-color: rgba(30,64,175,.35);
+      color: #ffffff;
+    }
+    .blue:hover{ filter: brightness(.98); box-shadow: 0 16px 28px rgba(17,24,39,.14); }
+
+    details{
+      margin-top: 14px;
+      border-top: 1px dashed rgba(229,231,235,.95);
+      padding-top: 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:#374151;
+      font-weight:700;
+      font-size: 13px;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .settings{
+      margin-top: 10px;
+      display:grid;
+      gap:10px;
+    }
+    label{ font-size: 12px; color: var(--muted); }
+    input{
       width:100%;
-      padding: 12px 12px;
-      border:1px solid rgba(230,232,238,.95);
-      border-radius: 14px;
-      background: rgba(255,255,255,.9);
+      height: 42px;
+      padding: 0 12px;
+      border-radius: 12px;
+      border:1px solid rgba(229,231,235,.95);
       outline:none;
-      font-size: 14px;
+      font-size: 13px;
+      background:#fff;
     }
-    textarea{ min-height: 94px; resize: vertical; }
-    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    @media (max-width: 520px){ .row2{ grid-template-columns: 1fr; } }
-
-    .helper{
-      margin-top:10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px dashed rgba(181,138,42,.45);
-      background: rgba(214,179,90,.10);
-      color:#6b5b2a;
-      font-size:12px;
-      line-height:1.45;
+    .saveRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
-
-    .status{
-      margin-top:10px;
-      padding:10px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(230,232,238,.95);
-      background: rgba(255,255,255,.75);
+    button{
+      height: 42px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border:1px solid rgba(229,231,235,.95);
+      background:#fff;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .hint{
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.4;
     }
-    .status b{ color: var(--text); }
+
+    .footer{
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+    }
   </style>
 </head>
-
 <body>
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
         <div class="logo">
-          <img src="logo.png" alt="Altınküre Logo" />
+          <img src="logo.png" alt="Altınküre Logo">
         </div>
         <div class="titles">
-          <div class="h1">Altınküre Ortaokulu</div>
-          <div class="h2">Öğrenci Çalışma Programı Paneli</div>
+          <h1>Altınküre Ortaokulu</h1>
+          <p>Öğrenci Çalışma Programı Paneli</p>
         </div>
       </div>
-      <div class="pill"><span class="dot"></span> Panel sadece yönlendirir • Sistemler ayrı sayfalarda çalışır</div>
+      <div class="pill"><span class="dot"></span> Panel yönlendirir • Sistemler ayrı sayfalarda</div>
     </div>
 
     <div class="grid">
-      <!-- LEFT: Buttons -->
       <div class="card">
-        <h3>Sistemler</h3>
-        <p>
-          İstersen öğrenci seçmeden de açabilirsin.
-          Öğrenci seçersen seçtiğin <b>sınıf/şube/no/ad</b> bilgisi linke parametre olarak eklenir.
-        </p>
-
-        <div class="btnrow">
-          <button class="btn gold" id="btnManual">
-            Manuel Programı Aç <span class="arrow">→</span>
-          </button>
-
-          <button class="btn blue" id="btnAuto">
-            Analizden Otomatik Programı Aç <span class="arrow">→</span>
-          </button>
-        </div>
-
-        <div class="smallnote">
-          Not: Hedef sayfa parametreleri kullanmasa bile sorun olmaz; panel sadece linke ek bilgi taşır.
-        </div>
-
-        <div class="status" id="selStatus">
-          Seçim: <b>Yok</b>
+        <h2>Manuel Program</h2>
+        <p>Öğrenciler için ders veya kazanım seçerek program oluşturma.</p>
+        <div class="actions">
+          <a id="btnManual" class="btn gold" href="#" target="_blank" rel="noopener">Manuel Sistemi Aç</a>
         </div>
       </div>
 
-      <!-- RIGHT: Student select -->
       <div class="card">
-        <h3>Öğrenci Seç</h3>
-        <p>
-          Öğrenci listesi bu repodaki <b>students.json</b> dosyasından okunur.
-        </p>
-
-        <div class="row2">
-          <div>
-            <label>Sınıf</label>
-            <select id="gradeSel">
-              <option value="">Seçiniz</option>
-            </select>
-          </div>
-          <div>
-            <label>Şube</label>
-            <select id="branchSel" disabled>
-              <option value="">Önce sınıf seç</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label>Öğrenci</label>
-          <select id="studentSel" disabled>
-            <option value="">Önce sınıf ve şube seç</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Öğretmen Notu (opsiyonel)</label>
-          <textarea id="teacherNote" placeholder="Örn: Bu hafta MAT + TR ağırlık. Veliden takip istendi."></textarea>
-        </div>
-
-        <div class="helper">
-          Seçtiğin öğrenci bilgisi, butona basınca URL’e eklenecek:
-          <br><b>?grade=5&branch=A&class=5-A&no=175&name=...&note=...</b>
+        <h2>Analizden Otomatik Program</h2>
+        <p>Analiz verisini yapıştırarak otomatik program üretme.</p>
+        <div class="actions">
+          <a id="btnAuto" class="btn blue" href="#" target="_blank" rel="noopener">Otomatik Sistemi Aç</a>
         </div>
       </div>
     </div>
+
+    <div class="card" style="margin-top:16px;">
+      <details>
+        <summary>Ayarlar (linkleri buradan değiştir)</summary>
+        <div class="settings">
+          <div>
+            <label>Manuel sistem linki</label>
+            <input id="manualUrl" placeholder="https://.../MANUEL_REPO/" />
+          </div>
+          <div>
+            <label>Otomatik sistem linki</label>
+            <input id="autoUrl" placeholder="https://.../OTOMATIK_REPO/" />
+          </div>
+          <div class="saveRow">
+            <button id="saveBtn" type="button">Kaydet</button>
+            <button id="resetBtn" type="button">Sıfırla</button>
+            <div class="hint">Bu ayarlar sadece bu cihazın tarayıcısında saklanır.</div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="footer">Altınküre Ortaokulu • Öğretmen Paneli</div>
   </div>
 
-<script>
-  // ✅ Buradan linkleri değiştir (manuel/otomatik sayfaların URL’leri)
-  const MANUAL_URL = "https://burakkteacher.github.io/altinkure-manuel-program/";
-  const AUTO_URL   = "https://burakkteacher.github.io/ogrenci-program/";
+  <script>
+    // Varsayılan linkler: buraya kendi GitHub Pages adreslerini yazabilirsin.
+    // Örnek:
+    // const DEFAULT_MANUAL = "https://burakkteacher.github.io/altinkure-manuel-program/";
+    // const DEFAULT_AUTO   = "https://burakkteacher.github.io/ogrenci-program/";
+    const DEFAULT_MANUAL = "";
+    const DEFAULT_AUTO   = "";
 
-  // students.json dosya adı (panel repo root’unda olmalı)
-  const STUDENTS_JSON_URL = "students.json";
+    const K_MANUAL = "ak_manual_url_v1";
+    const K_AUTO   = "ak_auto_url_v1";
 
-  const gradeSel  = document.getElementById("gradeSel");
-  const branchSel = document.getElementById("branchSel");
-  const studentSel= document.getElementById("studentSel");
-  const noteEl    = document.getElementById("teacherNote");
-  const selStatus = document.getElementById("selStatus");
+    const elManual = document.getElementById("btnManual");
+    const elAuto   = document.getElementById("btnAuto");
+    const inManual = document.getElementById("manualUrl");
+    const inAuto   = document.getElementById("autoUrl");
 
-  let STORE = {
-    // normalized
-    grades: [],                 // ["5","6",...]
-    branchesByGrade: {},        // { "5": ["A","B"] }
-    studentsByClassKey: {},     // { "5-A": [ {numara:"175", name:"X"} ] }
-  };
-
-  function setStatus(){
-    const g = gradeSel.value;
-    const b = branchSel.value;
-    const st = studentSel.value ? JSON.parse(studentSel.value) : null;
-
-    if(!g || !b || !st){
-      selStatus.innerHTML = `Seçim: <b>Yok</b>`;
-      return;
-    }
-    selStatus.innerHTML = `Seçim: <b>${g}-${b}</b> • <b>${st.numara}</b> • <b>${st.name}</b>`;
-  }
-
-  function buildQuery(){
-    const g = gradeSel.value;
-    const b = branchSel.value;
-    const st = studentSel.value ? JSON.parse(studentSel.value) : null;
-    const note = (noteEl.value || "").trim();
-
-    const params = new URLSearchParams();
-    if(g) params.set("grade", g);
-    if(b) params.set("branch", b);
-    if(g && b) params.set("class", `${g}-${b}`);
-    if(st){
-      if(st.numara) params.set("no", st.numara);
-      if(st.name) params.set("name", st.name);
-    }
-    if(note) params.set("note", note);
-    return params.toString() ? ("?" + params.toString()) : "";
-  }
-
-  function openWithParams(baseUrl){
-    const q = buildQuery();
-    window.open(baseUrl + q, "_blank", "noopener");
-  }
-
-  document.getElementById("btnManual").addEventListener("click", () => openWithParams(MANUAL_URL));
-  document.getElementById("btnAuto").addEventListener("click", () => openWithParams(AUTO_URL));
-
-  // ---------- students.json loader (supports your format + array fallback) ----------
-  function normalizeFromYourFormat(data){
-    // Expected: { grades: { "5":["A","B"] }, classes: { "5-A":[{numara,name}, ...] } }
-    const gradesObj = data.grades || {};
-    const classesObj = data.classes || {};
-
-    const grades = Object.keys(gradesObj).filter(k => /^\d+$/.test(String(k))).sort((a,b)=>Number(a)-Number(b));
-    const branchesByGrade = {};
-    for(const g of grades){
-      const arr = Array.isArray(gradesObj[g]) ? gradesObj[g] : [];
-      branchesByGrade[g] = arr.map(x => String(x)).filter(Boolean);
+    function normUrl(u){
+      u = (u || "").trim();
+      if(!u) return "";
+      // GitHub Pages klasörleri genelde / ile biter; sorun olmasın diye ekleyelim
+      if(!u.endsWith("/")) u += "/";
+      return u;
     }
 
-    // classes
-    const studentsByClassKey = {};
-    for(const key of Object.keys(classesObj)){
-      const list = Array.isArray(classesObj[key]) ? classesObj[key] : [];
-      studentsByClassKey[key] = list.map(s => ({
-        numara: String(s.numara ?? s.Numara ?? s.no ?? "").trim(),
-        name:   String(s.name ?? s.Adi ?? s.adi ?? "").trim()
-      })).filter(x => x.numara || x.name);
+    function apply(){
+      const manual = normUrl(localStorage.getItem(K_MANUAL) || DEFAULT_MANUAL);
+      const auto   = normUrl(localStorage.getItem(K_AUTO) || DEFAULT_AUTO);
+
+      inManual.value = manual;
+      inAuto.value = auto;
+
+      elManual.href = manual || "#";
+      elAuto.href   = auto   || "#";
+
+      // Link boşsa tıklamayı engelle
+      elManual.onclick = (e) => {
+        if(!manual){ e.preventDefault(); alert("Manuel sistem linki boş. Ayarlardan linki gir."); }
+      };
+      elAuto.onclick = (e) => {
+        if(!auto){ e.preventDefault(); alert("Otomatik sistem linki boş. Ayarlardan linki gir."); }
+      };
     }
 
-    return { grades, branchesByGrade, studentsByClassKey };
-  }
-
-  function normalizeFromArrayFormat(arr){
-    // Expected array rows: [{Sube:"5-A", Numara:"1021", Adi:"..."}, ...]
-    const studentsByClassKey = {};
-    const branchesByGrade = {};
-    const gradeSet = new Set();
-
-    for(const r of arr){
-      const sube = String(r.Sube ?? r.sube ?? "").trim();  // "5-A"
-      const numara = String(r.Numara ?? r.numara ?? r.no ?? "").trim();
-      const name = String(r.Adi ?? r.adi ?? r.name ?? "").trim();
-      if(!sube) continue;
-
-      const m = sube.match(/^(\d+)\s*-\s*([A-Za-zÇĞİÖŞÜçğıöşü])$/);
-      if(!m) continue;
-
-      const g = m[1];
-      const b = m[2].toUpperCase();
-      const key = `${g}-${b}`;
-
-      gradeSet.add(g);
-      branchesByGrade[g] = branchesByGrade[g] || [];
-      if(!branchesByGrade[g].includes(b)) branchesByGrade[g].push(b);
-
-      studentsByClassKey[key] = studentsByClassKey[key] || [];
-      studentsByClassKey[key].push({ numara, name });
-    }
-
-    const grades = Array.from(gradeSet).sort((a,b)=>Number(a)-Number(b));
-    for(const g of grades){
-      branchesByGrade[g] = (branchesByGrade[g] || []).sort();
-      // sort students by numara
-      for(const b of branchesByGrade[g]){
-        const key = `${g}-${b}`;
-        (studentsByClassKey[key] || []).sort((x,y)=> (x.numara||"").localeCompare(y.numara||"", "tr"));
-      }
-    }
-
-    return { grades, branchesByGrade, studentsByClassKey };
-  }
-
-  async function loadStudents(){
-    const res = await fetch(STUDENTS_JSON_URL, { cache: "no-store" });
-    if(!res.ok) throw new Error("students.json okunamadı (404/permission).");
-    const data = await res.json();
-
-    // Decide format
-    if(data && typeof data === "object" && !Array.isArray(data) && (data.grades || data.classes)){
-      STORE = normalizeFromYourFormat(data);
-      return;
-    }
-    if(Array.isArray(data)){
-      STORE = normalizeFromArrayFormat(data);
-      return;
-    }
-    throw new Error("students.json formatı tanınmadı.");
-  }
-
-  function fillGrades(){
-    gradeSel.innerHTML = `<option value="">Seçiniz</option>`;
-    for(const g of STORE.grades){
-      const opt = document.createElement("option");
-      opt.value = g;
-      opt.textContent = `${g}. Sınıf`;
-      gradeSel.appendChild(opt);
-    }
-  }
-
-  function fillBranches(grade){
-    const branches = STORE.branchesByGrade[grade] || [];
-    branchSel.disabled = !branches.length;
-    branchSel.innerHTML = branches.length
-      ? `<option value="">Seçiniz</option>`
-      : `<option value="">Şube yok</option>`;
-
-    for(const b of branches){
-      const opt = document.createElement("option");
-      opt.value = b;
-      opt.textContent = b;
-      branchSel.appendChild(opt);
-    }
-  }
-
-  function fillStudents(grade, branch){
-    const key = `${grade}-${branch}`;
-    const list = STORE.studentsByClassKey[key] || [];
-    studentSel.disabled = !list.length;
-
-    studentSel.innerHTML = list.length
-      ? `<option value="">Seçiniz</option>`
-      : `<option value="">Öğrenci yok</option>`;
-
-    // sort by numara (numeric-like)
-    const sorted = [...list].sort((a,b)=>{
-      const na = parseInt(a.numara,10); const nb = parseInt(b.numara,10);
-      if(!isNaN(na) && !isNaN(nb)) return na-nb;
-      return (a.numara||"").localeCompare(b.numara||"", "tr");
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      localStorage.setItem(K_MANUAL, normUrl(inManual.value));
+      localStorage.setItem(K_AUTO, normUrl(inAuto.value));
+      apply();
+      alert("Kaydedildi.");
     });
 
-    for(const st of sorted){
-      const opt = document.createElement("option");
-      opt.value = JSON.stringify(st);
-      opt.textContent = `${st.numara} • ${st.name}`;
-      studentSel.appendChild(opt);
-    }
-  }
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      localStorage.removeItem(K_MANUAL);
+      localStorage.removeItem(K_AUTO);
+      apply();
+      alert("Sıfırlandı.");
+    });
 
-  // wiring
-  gradeSel.addEventListener("change", () => {
-    const g = gradeSel.value;
-    branchSel.value = "";
-    studentSel.value = "";
-    studentSel.disabled = true;
-    studentSel.innerHTML = `<option value="">Önce sınıf ve şube seç</option>`;
-    fillBranches(g);
-    setStatus();
-  });
-
-  branchSel.addEventListener("change", () => {
-    const g = gradeSel.value;
-    const b = branchSel.value;
-    studentSel.value = "";
-    fillStudents(g,b);
-    setStatus();
-  });
-
-  studentSel.addEventListener("change", setStatus);
-  noteEl.addEventListener("input", setStatus);
-
-  // init
-  (async function init(){
-    try{
-      await loadStudents();
-      fillGrades();
-      setStatus();
-    }catch(err){
-      console.error(err);
-      selStatus.innerHTML = `Seçim: <b>Yok</b> • <span style="color:#b91c1c;font-weight:700">students.json okunamadı / format uyumsuz</span>`;
-    }
-  })();
-</script>
-
+    apply();
+  </script>
 </body>
 </html>
