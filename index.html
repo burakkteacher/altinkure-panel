@@ -1,202 +1,535 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Altınküre Ortaokulu • Öğretmen Paneli</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
 
-<title>Altınküre Ortaokulu Program Paneli</title>
+      /* Altınküre hissi */
+      --gold:#c9a227;
+      --gold2:#b88e12;
+      --blue:#2f6fed;
 
-<style>
+      --shadow: 0 12px 30px rgba(17,24,39,.08);
+      --radius: 18px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 50% -200px, rgba(201,162,39,.18), transparent 60%),
+                  radial-gradient(900px 500px at 90% 0px, rgba(47,111,237,.12), transparent 55%),
+                  var(--bg);
+    }
+    .wrap{ max-width:1100px; margin:24px auto 48px; padding:0 14px; }
+    .top{
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      gap:10px; margin-bottom:18px;
+    }
+    .logo{
+      width:140px; height:auto;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.08));
+    }
+    h1{ margin:0; font-size:34px; letter-spacing:.2px; }
+    .subtitle{ color:var(--muted); font-size:15px; }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px; border:1px solid var(--line);
+      background:#fff; border-radius:999px; box-shadow: 0 6px 18px rgba(0,0,0,.05);
+      color:#374151; font-size:12px;
+    }
+    .grid{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:14px;
+      margin-top:16px;
+    }
+    @media (max-width:980px){ .grid{ grid-template-columns:1fr; } }
 
-body{
-margin:0;
-font-family:Segoe UI, Arial, sans-serif;
-background:#f5f6f8;
-color:#333;
-text-align:center;
-}
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+    }
+    .card h2{ margin:0 0 10px; font-size:18px; }
+    .muted{ color:var(--muted); font-size:12.5px; line-height:1.45; }
 
-/* HEADER */
+    label{ display:block; font-size:12px; color:var(--muted); margin:12px 0 6px; }
+    select,input,button{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 12px;
+      font-size:14px;
+      background:#fff;
+      color:var(--text);
+      outline:none;
+    }
+    select:focus,input:focus{ border-color: rgba(47,111,237,.5); box-shadow: 0 0 0 4px rgba(47,111,237,.12); }
 
-.header{
-padding:40px 20px 10px 20px;
-}
+    .row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width:640px){ .row{ grid-template-columns:1fr; } }
 
-.logo{
-width:160px;
-margin-bottom:10px;
-}
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .btnRow button{ flex:1 1 220px; cursor:pointer; font-weight:800; }
+    .btnGold{
+      background: linear-gradient(180deg, #d7b23a, #b88e12);
+      border: 1px solid #b88e12;
+      color:#fff;
+    }
+    .btnBlue{
+      background: linear-gradient(180deg, #3d7cff, #2f6fed);
+      border: 1px solid #2f6fed;
+      color:#fff;
+    }
+    .btnGhost{
+      background:#fff;
+      border:1px dashed #cbd5e1;
+      color:#111827;
+      font-weight:700;
+    }
+    .btnGold:hover,.btnBlue:hover{ filter:brightness(1.03); transform: translateY(-1px); }
+    .btnGold:active,.btnBlue:active{ transform: translateY(0px); }
 
-.school{
-font-size:26px;
-font-weight:700;
-color:#222;
-}
+    .infoBox{
+      margin-top:12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background: linear-gradient(180deg, rgba(201,162,39,.10), rgba(47,111,237,.06));
+    }
+    .kv{ display:grid; grid-template-columns: 130px 1fr; gap:6px; font-size:13px; }
+    .kv div:nth-child(odd){ color:var(--muted); }
 
-.panel{
-color:#888;
-margin-top:5px;
-}
+    .smallActions{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+    }
+    .smallActions button{ flex: 1 1 160px; padding:10px 12px; font-size:13px; }
 
-/* CONTAINER */
+    .list{
+      margin-top:12px;
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    .li{
+      display:flex; justify-content:space-between; gap:10px;
+      padding:10px 10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      margin-bottom:10px;
+      background:#fff;
+    }
+    .li b{ font-size:13px; }
+    .li span{ color:var(--muted); font-size:12px; }
+    .tag{
+      display:inline-flex; align-items:center;
+      padding:5px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      font-size:12px;
+      background:#fff;
+      color:#374151;
+      white-space:nowrap;
+      height: fit-content;
+    }
 
-.container{
-max-width:900px;
-margin:auto;
-margin-top:40px;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:35px;
-padding:20px;
-}
-
-/* CARD */
-
-.card{
-background:white;
-padding:35px;
-border-radius:14px;
-box-shadow:0 8px 22px rgba(0,0,0,0.08);
-transition:0.25s;
-}
-
-.card:hover{
-transform:translateY(-4px);
-box-shadow:0 12px 30px rgba(0,0,0,0.12);
-}
-
-.card h2{
-margin-top:0;
-color:#222;
-}
-
-.card p{
-color:#666;
-font-size:14px;
-line-height:1.6;
-}
-
-/* BUTTON */
-
-.btn{
-display:inline-block;
-margin-top:20px;
-padding:14px 26px;
-border-radius:8px;
-font-weight:600;
-text-decoration:none;
-transition:0.2s;
-}
-
-.btn-manuel{
-background:#d4af37;
-color:white;
-}
-
-.btn-manuel:hover{
-background:#c19d2e;
-}
-
-.btn-auto{
-background:#4a6cf7;
-color:white;
-}
-
-.btn-auto:hover{
-background:#3856d6;
-}
-
-/* FOOTER */
-
-.footer{
-margin-top:50px;
-font-size:13px;
-color:#888;
-padding-bottom:30px;
-}
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-.container{
-grid-template-columns:1fr;
-}
-
-}
-
-</style>
+    .error{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid #fecaca;
+      background:#fff1f2;
+      color:#7f1d1d;
+      font-size:13px;
+      display:none;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <div class="top">
+      <img class="logo" src="logo.png" alt="Altınküre Logo" />
+      <div class="pill">Altınküre Ortaokulu • Öğrenci Çalışma Programı Paneli</div>
+      <h1>Altınküre Ortaokulu</h1>
+      <div class="subtitle">Öğrenci seç → Manuel / Analizden Otomatik / Arşiv (tek ekrandan erişim)</div>
+    </div>
 
-<div class="header">
+    <div class="grid">
+      <!-- Sol: Öğrenci seçimi + yönlendirme -->
+      <div class="card">
+        <h2>Öğrenci Seçimi</h2>
+        <div class="muted">
+          Bu panel <b>students.json</b> dosyasını repo root’tan okur. Öğrenci seçtikten sonra sistemleri tek tıkla açarsın.
+        </div>
 
-<img src="logo.png" class="logo">
+        <div class="error" id="errBox"></div>
 
-<div class="school">
-Altınküre Ortaokulu
-</div>
+        <div class="row">
+          <div>
+            <label>Sınıf (opsiyonel filtre)</label>
+            <select id="gradeSel">
+              <option value="">Tümü</option>
+              <option value="5">5. Sınıf</option>
+              <option value="6">6. Sınıf</option>
+              <option value="7">7. Sınıf</option>
+              <option value="8">8. Sınıf</option>
+            </select>
+          </div>
+          <div>
+            <label>Şube</label>
+            <select id="subeSel">
+              <option value="">Önce yükleniyor…</option>
+            </select>
+          </div>
+        </div>
 
-<div class="panel">
-Öğrenci Çalışma Programı Paneli
-</div>
+        <label>Öğrenci</label>
+        <select id="stuSel" disabled>
+          <option value="">Önce şube seç</option>
+        </select>
 
-</div>
+        <div class="infoBox" id="selectedBox" style="display:none;">
+          <div class="kv">
+            <div>Şube</div><div id="kvSube">-</div>
+            <div>No</div><div id="kvNo">-</div>
+            <div>Ad Soyad</div><div id="kvName">-</div>
+          </div>
 
+          <div class="btnRow">
+            <button class="btnGold" id="btnManual">Manuel Programı Aç</button>
+            <button class="btnBlue" id="btnAuto">Analizden Otomatik Aç</button>
+          </div>
 
-<div class="container">
+          <div class="smallActions">
+            <button class="btnGhost" id="btnCopy">Öğrenci Bilgisi Kopyala</button>
+            <button class="btnGhost" id="btnClearSel">Seçimi Sıfırla</button>
+          </div>
 
+          <div class="muted" style="margin-top:10px;">
+            Not: Bu sayfa diğer sistemleri <b>bozmaz</b>. Sadece seçili öğrenciyi parametreyle açar.
+          </div>
+        </div>
+      </div>
 
-<div class="card">
+      <!-- Sağ: Arşiv / Bilgi -->
+      <div class="card">
+        <h2>Excel Arşivi / Geçmiş Programlar</h2>
+        <div class="muted">
+          Bu bölüm, ileride manuel/otomatik sayfalar “kayıt” attığında otomatik dolacak şekilde planlandı.
+          Şimdilik panel, tarayıcıdaki <b>localStorage</b> kayıtlarını listeler (varsa).
+        </div>
 
-<h2>Manuel Program</h2>
+        <div class="list" id="archiveList">
+          <div class="muted">Henüz arşiv kaydı bulunamadı.</div>
+        </div>
 
-<p>
-Öğrenciler için ders veya kazanım seçerek
-haftalık çalışma programı oluşturabilirsiniz.
-PDF ve ZIP çıktıları üretir.
-</p>
+        <div class="muted" style="margin-top:12px;">
+          İstersen bir sonraki adımda şunu da yaparız:
+          <b>Manuel</b> ve <b>Otomatik</b> sayfaları Excel üretince “program kaydı”nı buraya otomatik düşürür.
+        </div>
+      </div>
+    </div>
+  </div>
 
-<a class="btn btn-manuel"
-href="https://burakkteacher.github.io/altinkure-manuel-program/">
+<script>
+/* ===========================
+   1) BU İKİ LİNKİ KENDİ SİTELERİNE GÖRE AYARLA
+   =========================== */
+// Eğer manuel/otomatik sayfalar AYNI repo içindeyse dosya adı yazman yeterli: "manual.html" gibi.
+// Eğer başka repoda yayınlıysa tam URL yaz:
+const MANUAL_URL = "https://burakkteacher.github.io/altinkure-manuel-program/"; // örnek
+const AUTO_URL   = "https://burakkteacher.github.io/ogrenci-program/";        // örnek
 
-Manuel Sistemi Aç
+/* ===========================
+   2) students.json okuma + esnek parse
+   =========================== */
+const errBox = document.getElementById("errBox");
+function showError(msg){
+  errBox.style.display = "block";
+  errBox.textContent = msg;
+}
+function hideError(){
+  errBox.style.display = "none";
+  errBox.textContent = "";
+}
 
-</a>
+function normTR(s){
+  return (s ?? "").toString().trim();
+}
+function normKey(s){
+  return normTR(s).toLocaleLowerCase("tr-TR");
+}
 
-</div>
+// students.json formatlarını esnek karşılamak:
+// - Array of {sube, numara, adi, sinif} gibi
+// - Array of {Sube, Numara, Adi, Sinif} gibi
+// - Object içinde students: [...]
+function coerceStudents(data){
+  let arr = data;
+  if(data && typeof data === "object" && !Array.isArray(data)){
+    if(Array.isArray(data.students)) arr = data.students;
+    else if(Array.isArray(data.ogrenciler)) arr = data.ogrenciler;
+  }
+  if(!Array.isArray(arr)) return [];
 
+  const out = [];
+  for(const it of arr){
+    if(!it || typeof it !== "object") continue;
 
+    const sube =
+      it.sube ?? it.Sube ?? it.SUBE ?? it.branch ?? it.Branch ?? "";
+    const numara =
+      it.numara ?? it.Numara ?? it.no ?? it.No ?? it.number ?? it.Number ?? "";
+    const adi =
+      it.adi ?? it.Adi ?? it.adsoyad ?? it.AdSoyad ?? it.name ?? it.Name ?? "";
+    const sinif =
+      it.sinif ?? it.Sinif ?? it.grade ?? it.Grade ?? "";
 
-<div class="card">
+    const subeStr = normTR(sube);
+    const noStr = normTR(numara);
+    const nameStr = normTR(adi);
 
-<h2>Analizden Otomatik Program</h2>
+    if(!subeStr || !noStr || !nameStr) continue;
 
-<p>
-Deneme analizi verisini yapıştırarak
-öğrenciye özel otomatik çalışma programı oluşturur.
-</p>
+    // sinif boşsa "5-A" gibi subeden çıkarmayı dene
+    let gradeStr = normTR(sinif);
+    if(!gradeStr){
+      const m = subeStr.match(/^(\d{1,2})\s*[-\s]/);
+      if(m) gradeStr = m[1];
+    }
 
-<a class="btn btn-auto"
-href="https://burakkteacher.github.io/ogrenci-program/">
+    out.push({
+      sube: subeStr,
+      numara: noStr,
+      adi: nameStr,
+      sinif: gradeStr
+    });
+  }
+  return out;
+}
 
-Otomatik Sistemi Aç
+async function loadStudents(){
+  hideError();
+  // cache bust (mobilde eski json’u tutabiliyor)
+  const url = "students.json?v=" + Date.now();
+  const res = await fetch(url, { cache: "no-store" });
+  if(!res.ok){
+    throw new Error("students.json okunamadı. (Repo root’ta mı? Dosya adı tam 'students.json' mı?)");
+  }
+  const data = await res.json();
+  const students = coerceStudents(data);
+  if(!students.length){
+    throw new Error("students.json yüklendi ama öğrenci listesi boş görünüyor. JSON formatı farklı olabilir.");
+  }
+  return students;
+}
 
-</a>
+/* ===========================
+   3) UI
+   =========================== */
+const gradeSel = document.getElementById("gradeSel");
+const subeSel  = document.getElementById("subeSel");
+const stuSel   = document.getElementById("stuSel");
 
-</div>
+const selectedBox = document.getElementById("selectedBox");
+const kvSube = document.getElementById("kvSube");
+const kvNo   = document.getElementById("kvNo");
+const kvName = document.getElementById("kvName");
 
+const btnManual = document.getElementById("btnManual");
+const btnAuto   = document.getElementById("btnAuto");
+const btnCopy   = document.getElementById("btnCopy");
+const btnClearSel = document.getElementById("btnClearSel");
 
-</div>
+let ALL = [];
+let FILTERED = [];
+let current = null;
 
+function uniqueSorted(arr){
+  return Array.from(new Set(arr)).sort((a,b)=> a.localeCompare(b, "tr"));
+}
 
-<div class="footer">
+function fillSubes(){
+  const g = gradeSel.value;
+  const list = ALL.filter(s => !g || s.sinif === g);
+  FILTERED = list;
 
-Altınküre Okulları • Öğrenci Program Sistemi
+  const subes = uniqueSorted(list.map(x => x.sube));
+  subeSel.innerHTML = "";
+  const opt0 = document.createElement("option");
+  opt0.value = "";
+  opt0.textContent = subes.length ? "Şube seç" : "Şube yok";
+  subeSel.appendChild(opt0);
 
-</div>
+  for(const s of subes){
+    const o = document.createElement("option");
+    o.value = s;
+    o.textContent = s;
+    subeSel.appendChild(o);
+  }
 
+  stuSel.disabled = true;
+  stuSel.innerHTML = `<option value="">Önce şube seç</option>`;
+  hideSelection();
+}
 
+function fillStudents(){
+  const sube = subeSel.value;
+  const list = FILTERED.filter(s => s.sube === sube)
+    .sort((a,b)=> a.adi.localeCompare(b.adi, "tr") || a.numara.localeCompare(b.numara, "tr"));
+
+  stuSel.innerHTML = "";
+  if(!sube){
+    stuSel.disabled = true;
+    stuSel.innerHTML = `<option value="">Önce şube seç</option>`;
+    hideSelection();
+    return;
+  }
+  if(!list.length){
+    stuSel.disabled = true;
+    stuSel.innerHTML = `<option value="">Öğrenci yok</option>`;
+    hideSelection();
+    return;
+  }
+
+  stuSel.disabled = false;
+  const opt0 = document.createElement("option");
+  opt0.value = "";
+  opt0.textContent = "Öğrenci seç";
+  stuSel.appendChild(opt0);
+
+  for(const st of list){
+    const o = document.createElement("option");
+    o.value = st.sube + "||" + st.numara + "||" + st.adi;
+    o.textContent = `${st.numara} • ${st.adi}`;
+    stuSel.appendChild(o);
+  }
+  hideSelection();
+}
+
+function showSelection(st){
+  current = st;
+  kvSube.textContent = st.sube;
+  kvNo.textContent = st.numara;
+  kvName.textContent = st.adi;
+  selectedBox.style.display = "block";
+}
+
+function hideSelection(){
+  current = null;
+  selectedBox.style.display = "none";
+}
+
+function openWithParams(baseUrl, st){
+  const u = new URL(baseUrl, window.location.href);
+  u.searchParams.set("sube", st.sube);
+  u.searchParams.set("no", st.numara);
+  u.searchParams.set("adi", st.adi);
+  if(st.sinif) u.searchParams.set("sinif", st.sinif);
+  window.open(u.toString(), "_blank");
+}
+
+gradeSel.addEventListener("change", fillSubes);
+subeSel.addEventListener("change", fillStudents);
+
+stuSel.addEventListener("change", () => {
+  const v = stuSel.value;
+  if(!v){ hideSelection(); return; }
+  const [sube,no,adi] = v.split("||");
+  const st = ALL.find(x => x.sube===sube && x.numara===no && x.adi===adi);
+  if(st) showSelection(st);
+  else hideSelection();
+});
+
+btnManual.addEventListener("click", () => {
+  if(!current) return;
+  openWithParams(MANUAL_URL, current);
+});
+btnAuto.addEventListener("click", () => {
+  if(!current) return;
+  openWithParams(AUTO_URL, current);
+});
+btnCopy.addEventListener("click", async () => {
+  if(!current) return;
+  const text = `${current.sube} | No: ${current.numara} | ${current.adi}`;
+  try{
+    await navigator.clipboard.writeText(text);
+    btnCopy.textContent = "Kopyalandı";
+    setTimeout(()=> btnCopy.textContent = "Öğrenci Bilgisi Kopyala", 900);
+  }catch{
+    alert(text);
+  }
+});
+btnClearSel.addEventListener("click", () => {
+  gradeSel.value = "";
+  fillSubes();
+});
+
+/* ===========================
+   4) Arşiv: localStorage (şimdilik)
+   - İleride manuel/auto sayfalara “kaydet” ekleriz; burası otomatik dolar.
+   =========================== */
+function renderArchive(){
+  const box = document.getElementById("archiveList");
+  const keys = Object.keys(localStorage).filter(k => k.startsWith("altinkure_archive_"));
+  if(!keys.length){
+    box.innerHTML = `<div class="muted">Henüz arşiv kaydı bulunamadı.</div>`;
+    return;
+  }
+  keys.sort((a,b)=> b.localeCompare(a));
+
+  box.innerHTML = "";
+  for(const k of keys.slice(0,30)){
+    let item = null;
+    try{ item = JSON.parse(localStorage.getItem(k)); }catch{}
+    if(!item) continue;
+
+    const div = document.createElement("div");
+    div.className = "li";
+
+    const left = document.createElement("div");
+    const title = document.createElement("b");
+    title.textContent = item.title || "Program";
+    const meta = document.createElement("span");
+    meta.textContent = item.meta || k.replace("altinkure_archive_","");
+    left.appendChild(title);
+    left.appendChild(document.createElement("br"));
+    left.appendChild(meta);
+
+    const tag = document.createElement("div");
+    tag.className = "tag";
+    tag.textContent = "Yerel kayıt";
+
+    div.appendChild(left);
+    div.appendChild(tag);
+    box.appendChild(div);
+  }
+}
+
+/* ===========================
+   INIT
+   =========================== */
+(async function init(){
+  try{
+    ALL = await loadStudents();
+    fillSubes();
+    renderArchive();
+  }catch(e){
+    console.error(e);
+    showError(e.message || "Öğrenci listesi yüklenemedi.");
+    // yine de dropdownları boş bırak
+    subeSel.innerHTML = `<option value="">Yüklenemedi</option>`;
+    stuSel.disabled = true;
+  }
+})();
+</script>
 </body>
 </html>
